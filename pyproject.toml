@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "local"
+version = "0.1.0"
+description = ""
+authors = ["EventQueue-io <info@eventqueue.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.0"
+funcy = "^2.0"
+backoff = "^2.2.1"
+pydantic = {extras = ["email"], version = "^2.4.2"}
+pydantic-settings = "^2.0.3"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+cryptography = "^41.0.4"
+httpx = "^0.25.0"
+httpx-sse = "^0.3.1"
+sse-starlette = "^1.6.5"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.5.1"
+black = "^23.9.1"
+coverage = "^7.3.2"
+pytest = "^7.4.2"
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
+flake8 = "^6.1.0"
+respx = "^0.20.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
