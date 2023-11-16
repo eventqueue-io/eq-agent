@@ -1,6 +1,6 @@
 # EventQueue Local Agent
 
-[EventQueue](https://eventqueue.io) is a SaaS platform that stores and forwards webhooks.
+EventQueue is a SaaS platform that stores and forwards webhooks.
 Compared to other similar services, EventQueue is very simple in that it is single-user, it
 does not offer analytics, and the UI is fairly minimal. However, it differentiates itself by
 emphasizing [security](#security) and [privacy](#privacy).
@@ -11,6 +11,10 @@ I had a use case where I wanted to receive webhooks on my home server,
 but a) I don't trust my Internet connection to be always available, b) I don't want to open
 a port on my firewall, and c) don't want to store the webhook's content unencrypted on a 3rd
 party service.
+
+EventQueue works with a public-facing service that receives/encrypts/stores the
+webhooks, and an agent that you run on your own infrastructure that connects to the service
+and retrieves the content for the webhooks you have configured.
 
 ## What is this repo?
 
@@ -33,6 +37,8 @@ not run on other architectures.
 - No authentication is supported for the incoming webhooks. This means that _you must be cautious
   with the public endpoint that EventQueue provides, and not share it publicly_: anyone who knows it
   can send HTTP calls that may contain malicious payloads, and will be forwarded to your local server.
+- If you lose your credentials, there is no way to get them back or reset them. You will need to
+  create a new account and reconfigure all your webhooks. I'm planning to add reset functionality soon.
 - While this is in beta, you can only receive up to 100 webhooks per day. If that number is 
   reached then excess webhooks are rejected. This is to avoid abuse of the service during this
   test phase, and will change in the near future.
