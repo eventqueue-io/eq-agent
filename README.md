@@ -92,7 +92,7 @@ The easiest way to install the local agent is to use the docker image. You can f
 the GitHub container registry and run it as follows:
 
 ```
-docker run -p 8000:8000 -v ./config:/app/config ghcr.io/eventqueue-io/eq-agent:0.1.0
+docker run -p 8000:8000 -v ./config:/app/config ghcr.io/eventqueue-io/eq-agent:0.1.1
 ```
 
 You can then access the UI at http://your-local-server:8000/ and you will be guided through
