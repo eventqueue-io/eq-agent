@@ -42,7 +42,7 @@ from httpx import (
     ReadError,
     ReadTimeout,
 )
-from httpx_sse import aconnect_sse
+from httpx_sse import aconnect_sse, SSEError
 from sse_starlette.sse import EventSourceResponse
 from fastapi import APIRouter, status
 from pydantic import (
@@ -305,7 +305,7 @@ async def sse_out(conn: Connection, private_key: PrivateKeyTypes) -> None:
     last_id = None
     reconnect_delay = 0.0
 
-    @on_exception(expo, (ConnectError, HTTPStatusError, RemoteProtocolError))
+    @on_exception(expo, (ConnectError, HTTPStatusError, RemoteProtocolError, SSEError))
     @on_exception(constant, (ReadTimeout, ReadError), jitter=full_jitter)
     async def _connect() -> None:
         nonlocal last_id, reconnect_delay
@@ -347,6 +347,9 @@ async def sse_out(conn: Connection, private_key: PrivateKeyTypes) -> None:
             os.kill(pid, signal.SIGTERM)
         except CancelledError:
             logger.info("Cancelled, exiting")
+            raise
+        except SSEError as e:
+            logger.error("Could not establish SSE connection: {}", e)
             raise
 
     await _connect()
